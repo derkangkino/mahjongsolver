@@ -168,7 +168,7 @@ while True:
                 mouse.click()
                 k += 1
 
-        if FM:
+        if FM[i]:
             tile = cv2.imread(path)
             tile = cv2.cvtColor(tile, cv2.COLOR_BGR2RGB)
 
