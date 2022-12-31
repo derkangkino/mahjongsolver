@@ -13,6 +13,33 @@ tile_list = natsorted(os.listdir(directory))
 folder_counter = -1
 while_counter = -1
 
+
+def delete_extra(arr):
+    z = 0
+    while z != len(arr) - 1 and len(arr) != 0:
+        c_cur_x, c_cur_y = arr[z]
+        c_fut_x, c_fut_y = arr[z + 1]
+
+        if (c_cur_x - 10 < c_fut_x < c_cur_x + 10) or (c_cur_y - 10 < c_fut_y < c_cur_y + 10):
+            arr.pop(z + 1)
+        else:
+            z += 1
+
+
+def press(arr):
+    z = 0
+    if len(arr) > 1:
+        while len(arr) > 1:
+            ptp_x, ptp_y = arr[z]
+            mouse.move(ptp_x + 25, ptp_y + 25, True, 0.01)
+            mouse.click()
+            z += 1
+            if z == 2:
+                arr.pop(1)
+                arr.pop(0)
+                z = 0
+
+
 while True:
 
     while_counter += 1
@@ -71,41 +98,10 @@ while True:
               False, False, False, True, False, True, False, False, False, False,
               False, False, True, False, False]
 
-        i = 0
-        while i != len(loc) - 1 and len(loc) != 0:
-            cur_x, cur_y = loc[i]
-            fut_x, fut_y = loc[i + 1]
-            if (cur_x - 10 < fut_x < cur_x + 10) or (cur_y - 10 < fut_y < cur_y + 10):
-                loc.pop(i + 1)
-            else:
-                i += 1
-        i = 0
-        while i != len(flowers) - 1 and len(flowers) != 0:
-            f_cur_x, f_cur_y = flowers[i]
-            f_fut_x, f_fut_y = flowers[i + 1]
-
-            if (f_cur_x - 10 < f_fut_x < f_cur_x + 10) or (f_cur_y - 10 < f_fut_y < f_cur_y + 10):
-                flowers.pop(i + 1)
-            else:
-                i += 1
-        i = 0
-        while i != len(circles) - 1 and len(circles) != 0:
-            c_cur_x, c_cur_y = circles[i]
-            c_fut_x, c_fut_y = circles[i + 1]
-
-            if (c_cur_x - 10 < c_fut_x < c_cur_x + 10) or (c_cur_y - 10 < c_fut_y < c_cur_y + 10):
-                circles.pop(i + 1)
-            else:
-                i += 1
-        i = 0
-        while i != len(gold) - 1 and len(gold) != 0:
-            c_cur_x, c_cur_y = gold[i]
-            c_fut_x, c_fut_y = gold[i + 1]
-
-            if (c_cur_x - 10 < c_fut_x < c_cur_x + 10) or (c_cur_y - 10 < c_fut_y < c_cur_y + 10):
-                gold.pop(i + 1)
-            else:
-                i += 1
+        delete_extra(loc)
+        delete_extra(flowers)
+        delete_extra(circles)
+        delete_extra(gold)
 
         i = 0
         color_to_match = [230, 224, 203]
@@ -144,41 +140,9 @@ while True:
 
         shuffle(loc)
 
-        flower = 0
-        if len(flowers) > 1:
-            while len(flowers) > 1:
-                pt_x, pt_y = flowers[flower]
-                mouse.move(pt_x + 25, pt_y + 25, True, 0.01)
-                mouse.click()
-                flower += 1
-                if flower == 2:
-                    flowers.pop(1)
-                    flowers.pop(0)
-                    flower = 0
-
-        circle = 0
-        if len(circles) > 1:
-            while len(circles) > 1:
-                pt_x, pt_y = circles[circle]
-                mouse.move(pt_x + 25, pt_y + 25, True, 0.01)
-                mouse.click()
-                circle += 1
-                if circle == 2:
-                    circles.pop(1)
-                    circles.pop(0)
-                    circle = 0
-
-        g = 0
-        if len(gold) > 1:
-            while len(gold) > 1:
-                pt_x, pt_y = gold[g]
-                mouse.move(pt_x + 25, pt_y + 25, True, 0.01)
-                mouse.click()
-                g += 1
-                if g == 2:
-                    gold.pop(1)
-                    gold.pop(0)
-                    g = 0
+        press(flowers)
+        press(circles)
+        press(gold)
 
         k = 0
         if len(loc) % 2 == 0:
